@@ -13,6 +13,28 @@ public class BoundaryAcheterProduit {
 	}
 
 	public void acheterProduit(String nomAcheteur) {
-		// TODO Ã  completer
+		boolean isResident = controlAcheterProduit.isResident(nomAcheteur);
+		if (!isResident) {
+			System.out.println("Désolé, il faut habiter ici pour acheter quelque chose.");
+		}
+		else {
+			controlAcheterProduit.afficherMarche(nomAcheteur);
+			System.out.println("Entrez le nom du marchand qui vous interresse :");
+			String nomVendeur = scan.next();
+			while (!controlAcheterProduit.isVendeur(nomVendeur)) {
+				System.out.println("Mauvais nom, entrez un nouveau :");
+				nomVendeur = scan.next();
+			}
+			
+			System.out.println("Combien d'objets voulez vous acheter ?");
+			int nb = scan.nextInt();
+			
+			while (!controlAcheterProduit.procederAchat(nomVendeur, nb)) {
+				System.out.println("Le vendeur n'a pas assez de qtt. Entrez un nouveau nombre");
+				nb = scan.nextInt();
+			}
+			
+			System.out.println("Achat effectué.");
+		}
 	}
 }
